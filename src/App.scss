@@ -1,6 +1,10 @@
 .App {
-  width: 80vw;
-  margin: 20px auto;
+  width: 95vw;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .App-header {
@@ -9,10 +13,13 @@
   justify-content: center;
   width: 100%;
   height: 50px;
+  margin: 20px 0;
 }
 
 .App-container {
   width: 100%;
-  height: 100%;
-  background: gray;
+  height: 80vh;
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
 }
