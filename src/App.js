@@ -1,6 +1,9 @@
 import React from "react";
 import "./App.scss";
 import BubbleSort from "./sortingAlgorithms/bubbleSort";
+import SelectionSort from "./sortingAlgorithms/selectionSort";
+import InsertionSort from "./sortingAlgorithms/insertionSort";
+import QuickSort from "./sortingAlgorithms/quickSort";
 
 class App extends React.Component {
   constructor(props) {
@@ -53,26 +56,37 @@ class App extends React.Component {
     return (
       <div className="App">
         <header className="App-header">
+          <div className="App-header__settings">
+            <span>
+              <input
+                type="range"
+                id="sortingSize"
+                onChange={this.handleColumnsAmountChange}
+                name="columnAmount"
+                min="2"
+                max="100"
+              />
+              <label htmlFor="columnAmount">Amount of columns</label>
+            </span>
+            <span>
+              <input
+                type="range"
+                id="sortingSpeed"
+                name="sortingSpeed"
+                onChange={this.handleSortingSpeedChange}
+                min="1"
+                max="100"
+              />
+              <label htmlFor="sortingSpeed">Sorting speed</label>
+            </span>
+          </div>
           <h1>Sorting algorithms</h1>
-          <input
-            type="range"
-            id="sortingSize"
-            onChange={this.handleColumnsAmountChange}
-            name="columnAmount"
-            min="2"
-            max="100"
-          />
-          <label htmlFor="columnAmount">Amount of columns</label>
-          <input
-            type="range"
-            id="sortingSpeed"
-            name="sortingSpeed"
-            onChange={this.handleSortingSpeedChange}
-            min="1"
-            max="100"
-          />
-          <label htmlFor="sortingSpeed">Sorting speed</label>
-          <BubbleSort sortingSpeed={this.state.sortingSpeed} />
+          <div className="App-header__algorithms">
+            <BubbleSort sortingSpeed={this.state.sortingSpeed} />
+            <SelectionSort sortingSpeed={this.state.sortingSpeed} />
+            <InsertionSort sortingSpeed={this.state.sortingSpeed} />
+            <QuickSort sortingSpeed={this.state.sortingSpeed} />
+          </div>
         </header>
         <section className="App-container"></section>
       </div>
