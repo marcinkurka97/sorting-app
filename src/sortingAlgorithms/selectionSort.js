@@ -1,10 +1,12 @@
 import React from "react";
 
-function SelectionSort(props) {
+function SelectionSort({ isSorting, sortingChange, sortingSpeed }) {
   const selectionSort = () => {
+    sortingChange();
     let node = document.querySelector(".App-container");
     let array = Array.from(node.childNodes);
     let minIdx, temp;
+    let counter = 0;
 
     for (var i = 0; i < array.length; i++) {
       minIdx = i;
@@ -21,36 +23,38 @@ function SelectionSort(props) {
       array[minIdx] = temp;
     }
 
-    let k = 0;
-    let z = 0;
+    let a = 0;
+    let b = 0;
     let min = 0;
 
     window.sortingInterval = setInterval(function() {
       if (!arraysMatch(Array.from(node.childNodes), array)) {
-        if (k < node.childNodes.length) {
-          if (k >= 1) {
-            node.children[k - 1].style.opacity = "1";
+        if (a < node.childNodes.length) {
+          if (a >= 1) {
+            node.children[a - 1].style.opacity = "1";
           }
-          node.children[k].style.opacity = "0.8";
+          node.children[a].style.opacity = "0.8";
 
           if (
-            parseFloat(node.children[k].style.height) <
+            parseFloat(node.children[a].style.height) <
             parseFloat(node.children[min].style.height)
           ) {
-            node.children[k].style.background = "green";
+            node.children[a].style.background = "green";
             node.children[min].style.background = "grey";
-            min = k;
+            min = a;
           }
 
-          k++;
+          a++;
+          counter++;
+          document.getElementById("stepCounter").innerHTML = counter;
         } else {
-          exchangeElements(node.children[z], node.children[min]);
+          swapElements(node.children[b], node.children[min]);
 
-          node.children[z].style.background = "green";
+          node.children[b].style.background = "green";
           node.children[node.childNodes.length - 1].style.opacity = "1";
-          z++;
-          k = z;
-          min = k;
+          b++;
+          a = b;
+          min = a;
         }
       } else {
         node.childNodes.forEach(element => {
@@ -58,11 +62,12 @@ function SelectionSort(props) {
           element.style.opacity = "1";
         });
         clearInterval(window.sortingInterval);
+        sortingChange();
       }
-    }, 100 / props.sortingSpeed);
+    }, 100 / sortingSpeed);
   };
 
-  const exchangeElements = (element1, element2) => {
+  const swapElements = (element1, element2) => {
     if (element1 !== element2) {
       let clonedElement1 = element1.cloneNode(true);
       let clonedElement2 = element2.cloneNode(true);
@@ -82,7 +87,11 @@ function SelectionSort(props) {
     return true;
   };
 
-  return <button onClick={selectionSort}>Selection sort</button>;
+  return (
+    <button disabled={isSorting} onClick={selectionSort}>
+      Selection sort
+    </button>
+  );
 }
 
 export default SelectionSort;

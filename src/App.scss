@@ -22,8 +22,12 @@
     span {
       display: flex;
       flex-direction: column;
-      padding: 0 20px;
+      margin: 0 30px 0 0;
       text-align: center;
+    }
+
+    input {
+      width: 150px;
     }
   }
 
@@ -37,6 +41,12 @@
       font-weight: 500;
       font-size: 16px;
       margin: 0 30px;
+    }
+
+    button:disabled,
+    button[disabled] {
+      opacity: 0.25;
+      cursor: wait;
     }
 
     button::before {
@@ -69,6 +79,10 @@
     button:hover {
       cursor: pointer;
 
+      &:disabled {
+        cursor: wait;
+      }
+
       &:before {
         transform: translate(7px, -6px);
       }
@@ -85,5 +99,6 @@
   height: 80vh;
   display: flex;
   justify-content: center;
+  align-items: flex-end;
   flex-direction: row;
 }

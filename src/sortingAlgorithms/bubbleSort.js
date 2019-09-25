@@ -1,7 +1,8 @@
 import React from "react";
 
-function BubbleSort(props) {
+function BubbleSort({ isSorting, sortingChange, sortingSpeed }) {
   const bubbleSort = () => {
+    sortingChange();
     let node = document.querySelector(".App-container");
     let array = Array.from(node.childNodes);
 
@@ -21,6 +22,8 @@ function BubbleSort(props) {
       }
     }
 
+    let counter = 0;
+
     window.sortingInterval = setInterval(function() {
       if (!arraysMatch(Array.from(node.childNodes), array)) {
         if (i < node.childNodes.length - 1 - z) {
@@ -32,12 +35,7 @@ function BubbleSort(props) {
             parseFloat(node.children[i].style.height) >
             parseFloat(node.children[i + 1].style.height)
           ) {
-            document
-              .querySelector(".App-container")
-              .insertBefore(
-                document.querySelector(".App-container").children[i + 1],
-                document.querySelector(".App-container").children[i]
-              );
+            node.insertBefore(node.children[i + 1], node.children[i]);
             node.children[i].style.background = "green";
             node.children[i + 1].style.background = "green";
           } else {
@@ -46,6 +44,8 @@ function BubbleSort(props) {
           }
 
           i++;
+          counter++;
+          document.getElementById("stepCounter").innerHTML = counter;
         } else {
           i = 0;
           node.children[node.childNodes.length - 2 - z].style.background =
@@ -59,8 +59,9 @@ function BubbleSort(props) {
           element.style.background = "green";
         });
         clearInterval(window.sortingInterval);
+        sortingChange();
       }
-    }, 100 / props.sortingSpeed);
+    }, 200 / sortingSpeed);
   };
 
   const arraysMatch = (arr1, arr2) => {
@@ -72,7 +73,11 @@ function BubbleSort(props) {
 
     return true;
   };
-  return <button onClick={bubbleSort}>Bubble sort</button>;
+  return (
+    <button disabled={isSorting} onClick={bubbleSort}>
+      Bubble sort
+    </button>
+  );
 }
 
 export default BubbleSort;
