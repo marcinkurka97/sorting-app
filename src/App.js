@@ -4,6 +4,7 @@ import BubbleSort from "./sortingAlgorithms/bubbleSort";
 import SelectionSort from "./sortingAlgorithms/selectionSort";
 import InsertionSort from "./sortingAlgorithms/insertionSort";
 import MergeSort from "./sortingAlgorithms/mergeSort";
+import QuickSort from "./sortingAlgorithms/quickSort";
 
 class App extends React.Component {
   constructor(props) {
@@ -11,7 +12,8 @@ class App extends React.Component {
     this.state = {
       sortingSpeed: 0,
       columnsAmount: 10,
-      isSorting: false
+      isSorting: false,
+      isSorted: false
     };
   }
 
@@ -27,6 +29,10 @@ class App extends React.Component {
 
   sortingChange = () => {
     this.setState({ isSorting: !this.state.isSorting });
+  };
+
+  isArraySorted = () => {
+    this.setState({ isSorted: true });
   };
 
   handleColumnsAmountChange = event => {
@@ -46,6 +52,7 @@ class App extends React.Component {
   randomizeColumns = () => {
     clearInterval(window.sortingInterval);
     this.setState({ isSorting: false });
+    this.setState({ isSorted: false });
 
     let columnHeight;
     let column = "";
@@ -115,21 +122,36 @@ class App extends React.Component {
               sortingSpeed={this.state.sortingSpeed}
               isSorting={this.state.isSorting}
               sortingChange={this.sortingChange}
+              isSorted={this.state.isSorted}
+              isArraySorted={this.isArraySorted}
             />
             <SelectionSort
               sortingSpeed={this.state.sortingSpeed}
               isSorting={this.state.isSorting}
               sortingChange={this.sortingChange}
+              isSorted={this.state.isSorted}
+              isArraySorted={this.isArraySorted}
             />
             <InsertionSort
               sortingSpeed={this.state.sortingSpeed}
               isSorting={this.state.isSorting}
               sortingChange={this.sortingChange}
+              isSorted={this.state.isSorted}
+              isArraySorted={this.isArraySorted}
             />
             <MergeSort
               sortingSpeed={this.state.sortingSpeed}
               isSorting={this.state.isSorting}
               sortingChange={this.sortingChange}
+              isSorted={this.state.isSorted}
+              isArraySorted={this.isArraySorted}
+            />
+            <QuickSort
+              sortingSpeed={this.state.sortingSpeed}
+              isSorting={this.state.isSorting}
+              sortingChange={this.sortingChange}
+              isSorted={this.state.isSorted}
+              isArraySorted={this.isArraySorted}
             />
           </div>
         </header>

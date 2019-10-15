@@ -1,37 +1,32 @@
 import React from "react";
 
-function InsertionSort({ isSorting, sortingChange, sortingSpeed }) {
+function InsertionSort({
+  isSorting,
+  sortingChange,
+  isSorted,
+  isArraySorted,
+  sortingSpeed
+}) {
   const insertionSort = () => {
-    sortingChange();
-    let node = document.querySelector(".App-container");
-    let array = Array.from(node.childNodes);
-
-    for (let a = 1; a < array.length; a++) {
-      let el = array[a];
-      let b;
-
-      for (
-        b = a - 1;
-        b >= 0 &&
-        parseFloat(array[b].style.height) > parseFloat(el.style.height);
-        b--
-      ) {
-        array[b + 1] = array[b];
-      }
-
-      array[b + 1] = el;
+    if (!isSorted) {
+      sortingChange();
     }
-
-    let i = 0;
+    let node = document.querySelector(".App-container");
     let counter = 0;
-    let z = 0;
 
-    window.sortingInterval = setInterval(function() {
-      if (!arraysMatch(Array.from(node.childNodes), array)) {
-        let j = 0;
-        if (i < node.childNodes.length) {
+    async function task(j) {
+      await timer(200 / sortingSpeed);
+      document.getElementById("stepCounter").innerHTML = counter++;
+      node.insertBefore(node.children[j + 1], node.children[j]);
+      node.children[j].style.background = "green";
+    }
+    let count = 0;
+    (async function insertionSort() {
+      if (!isSorted) {
+        for (let i = 1; i < node.childNodes.length; i++) {
+          node.children[i].style.background = "green";
           let el = node.children[i];
-
+          let j;
           for (
             j = i - 1;
             j >= 0 &&
@@ -39,35 +34,20 @@ function InsertionSort({ isSorting, sortingChange, sortingSpeed }) {
               parseFloat(el.style.height);
             j--
           ) {
-            counter++;
-            document.getElementById("stepCounter").innerHTML = counter;
-
-            node.children[j].style.background = "green";
-            node.insertBefore(node.children[j + 1], node.children[j]);
+            await task(j);
           }
-
           node.cloneNode(node.children[j + 1], el);
-          i++;
+          node.children[count].style.background = "green";
+          count++;
         }
-      } else {
-        node.childNodes.forEach(element => {
-          element.style.background = "green";
-          element.style.opacity = "1";
-        });
-        clearInterval(window.sortingInterval);
+        isArraySorted();
         sortingChange();
       }
-    }, 200 / sortingSpeed);
-  };
+    })();
 
-  const arraysMatch = (arr1, arr2) => {
-    if (arr1.length !== arr2.length) return false;
-
-    for (var i = 0; i < arr1.length; i++) {
-      if (arr1[i].style.height !== arr2[i].style.height) return false;
+    function timer(ms) {
+      return new Promise(res => setTimeout(res, ms));
     }
-
-    return true;
   };
 
   return (
