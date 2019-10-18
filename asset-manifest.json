@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/sorting-app/static/css/main.eeb979b2.chunk.css",
+    "main.js": "/sorting-app/static/js/main.cfb1cbcf.chunk.js",
+    "main.js.map": "/sorting-app/static/js/main.cfb1cbcf.chunk.js.map",
+    "runtime~main.js": "/sorting-app/static/js/runtime~main.e09a1a5f.js",
+    "runtime~main.js.map": "/sorting-app/static/js/runtime~main.e09a1a5f.js.map",
+    "static/js/2.bfb4b6de.chunk.js": "/sorting-app/static/js/2.bfb4b6de.chunk.js",
+    "static/js/2.bfb4b6de.chunk.js.map": "/sorting-app/static/js/2.bfb4b6de.chunk.js.map",
+    "index.html": "/sorting-app/index.html",
+    "precache-manifest.408607c2673bfa58d69bfb0d99f60d17.js": "/sorting-app/precache-manifest.408607c2673bfa58d69bfb0d99f60d17.js",
+    "service-worker.js": "/sorting-app/service-worker.js",
+    "static/css/main.eeb979b2.chunk.css.map": "/sorting-app/static/css/main.eeb979b2.chunk.css.map"
+  }
+}
