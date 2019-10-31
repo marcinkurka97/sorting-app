@@ -1,8 +1,18 @@
 import React from "react";
 
-function QuickSort({ isSorting, sortingChange, sortingSpeed }) {
+function QuickSort({
+  isSorting,
+  sortingChange,
+  isSorted,
+  isArraySorted,
+  sortingSpeed
+}) {
   const quickSorting = () => {
+    if (!isSorted) {
+      sortingChange();
+    }
     let node = document.querySelector(".App-container");
+    let counter = 0;
 
     (async function quickSort(arr, left, right) {
       var pivot, partitionIndex;
@@ -16,6 +26,12 @@ function QuickSort({ isSorting, sortingChange, sortingSpeed }) {
           quickSort(arr, partitionIndex + 1, right)
         ]);
       }
+      isArraySorted();
+      sortingChange();
+
+      for (let i = 0; i < arr.childNodes.length; i++) {
+        arr.children[i].style.background = "green";
+      }
 
       return arr;
     })(node, 0, node.childNodes.length - 1);
@@ -23,16 +39,19 @@ function QuickSort({ isSorting, sortingChange, sortingSpeed }) {
     async function partition(arr, pivot, left, right) {
       var pivotValue = arr.children[pivot],
         partitionIndex = left;
-
+      arr.children[pivot].style.background = "blue";
       for (var i = left; i < right; i++) {
         if (
           parseFloat(arr.children[i].style.height) <
           parseFloat(pivotValue.style.height)
         ) {
           await swap(arr, i, partitionIndex);
+          arr.children[i].style.background = "green";
+
           partitionIndex++;
         }
       }
+      arr.children[pivot].style.background = "gray";
       await swap(arr, right, partitionIndex);
       return partitionIndex;
     }

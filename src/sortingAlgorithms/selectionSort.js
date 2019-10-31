@@ -20,7 +20,7 @@ function SelectionSort({
         for (let i = 0; i < node.childNodes.length; i++) {
           minIdx = i;
           for (let j = i + 1; j < node.childNodes.length; j++) {
-            await task2(j);
+            await visualizeProgressDelay(j);
             if (
               parseFloat(node.children[j].style.height) <
               parseFloat(node.children[minIdx].style.height)
@@ -31,21 +31,21 @@ function SelectionSort({
             }
             document.getElementById("stepCounter").innerHTML = counter++;
           }
-          await task(i, minIdx);
+          await swapItemsDelay(i, minIdx);
         }
         isArraySorted();
         sortingChange();
       }
     })();
 
-    async function task(i, minIdx) {
+    async function swapItemsDelay(i, minIdx) {
       await timer(200 / sortingSpeed);
       swapElements(node.children[i], node.children[minIdx]);
       node.children[i].style.background = "green";
       node.children[i].style.opacity = "1";
       node.children[node.childNodes.length - 1].style.opacity = "1";
     }
-    async function task2(j) {
+    async function visualizeProgressDelay(j) {
       await timer(200 / sortingSpeed);
       if (j >= 1) {
         node.children[j - 1].style.opacity = "1";
