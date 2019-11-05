@@ -6,7 +6,6 @@ import InsertionSort from "./sortingAlgorithms/insertionSort";
 import MergeSort from "./sortingAlgorithms/mergeSort";
 import QuickSort from "./sortingAlgorithms/quickSort";
 import HeapSort from "./sortingAlgorithms/heapSort";
-import { throwStatement } from "@babel/types";
 
 class App extends React.Component {
   constructor(props) {
@@ -170,6 +169,7 @@ class App extends React.Component {
               sortingChange={this.sortingChange}
               isSorted={this.state.isSorted}
               isArraySorted={this.isArraySorted}
+              array={this.state.array}
             />
           </div>
         </header>

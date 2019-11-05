@@ -59,11 +59,7 @@ function SelectionSort({
 
     const swapElements = (element1, element2) => {
       if (element1 !== element2) {
-        let clonedElement1 = element1.cloneNode(true);
-        let clonedElement2 = element2.cloneNode(true);
-
-        element2.parentNode.replaceChild(clonedElement1, element2);
-        element1.parentNode.replaceChild(clonedElement2, element1);
+        element1.parentNode.insertBefore(element2, element1);
       }
     };
   };

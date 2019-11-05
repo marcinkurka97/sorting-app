@@ -26,12 +26,13 @@ function QuickSort({
           quickSort(arr, partitionIndex + 1, right)
         ]);
       }
-      isArraySorted();
-      sortingChange();
 
       for (let i = 0; i < arr.childNodes.length; i++) {
         arr.children[i].style.background = "green";
       }
+
+      isArraySorted();
+      sortingChange();
 
       return arr;
     })(node, 0, node.childNodes.length - 1);
@@ -50,6 +51,7 @@ function QuickSort({
 
           partitionIndex++;
         }
+        document.getElementById("stepCounter").innerHTML = counter++;
       }
       arr.children[pivot].style.background = "gray";
       await swap(arr, right, partitionIndex);
