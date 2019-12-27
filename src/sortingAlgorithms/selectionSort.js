@@ -25,8 +25,8 @@ function SelectionSort({
               parseFloat(node.children[j].style.height) <
               parseFloat(node.children[minIdx].style.height)
             ) {
-              node.children[j].style.background = "green";
-              node.children[minIdx].style.background = "grey";
+              node.children[j].style.background = "#159957";
+              node.children[minIdx].style.background = "#e6f4f1";
               minIdx = j;
             }
             document.getElementById("stepCounter").innerHTML = counter++;
@@ -41,7 +41,7 @@ function SelectionSort({
     async function swapItemsDelay(i, minIdx) {
       await timer(200 / sortingSpeed);
       swapElements(node.children[i], node.children[minIdx]);
-      node.children[i].style.background = "green";
+      node.children[i].style.background = "#159957";
       node.children[i].style.opacity = "1";
       node.children[node.childNodes.length - 1].style.opacity = "1";
     }
@@ -50,7 +50,7 @@ function SelectionSort({
       if (j >= 1) {
         node.children[j - 1].style.opacity = "1";
       }
-      node.children[j].style.opacity = "0.8";
+      node.children[j].style.opacity = "0.5";
     }
 
     function timer(ms) {

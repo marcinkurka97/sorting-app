@@ -18,13 +18,13 @@ function InsertionSort({
       await timer(200 / sortingSpeed);
       document.getElementById("stepCounter").innerHTML = counter++;
       node.insertBefore(node.children[j + 1], node.children[j]);
-      node.children[j].style.background = "green";
+      node.children[j].style.background = "#159957";
     }
     let count = 0;
     (async function insertionSort() {
       if (!isSorted) {
         for (let i = 1; i < node.childNodes.length; i++) {
-          node.children[i].style.background = "green";
+          node.children[i].style.background = "#159957";
           let el = node.children[i];
           let j;
           for (
@@ -37,7 +37,7 @@ function InsertionSort({
             await task(j);
           }
           node.cloneNode(node.children[j + 1], el);
-          node.children[count].style.background = "green";
+          node.children[count].style.background = "#159957";
           count++;
         }
         isArraySorted();

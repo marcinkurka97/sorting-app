@@ -5,7 +5,6 @@ import SelectionSort from "./sortingAlgorithms/selectionSort";
 import InsertionSort from "./sortingAlgorithms/insertionSort";
 import MergeSort from "./sortingAlgorithms/mergeSort";
 import QuickSort from "./sortingAlgorithms/quickSort";
-import HeapSort from "./sortingAlgorithms/heapSort";
 
 class App extends React.Component {
   constructor(props) {
@@ -13,7 +12,7 @@ class App extends React.Component {
     this.state = {
       array: [],
       sortingSpeed: 0,
-      columnsAmount: 10,
+      columnsAmount: 50,
       isSorting: false,
       isSorted: false
     };
@@ -25,15 +24,17 @@ class App extends React.Component {
 
   componentDidMount() {
     this.randomizeColumns();
-    this.sortingSpeedNumRef.current.innerHTML = `Sorting speed: ${Math.round(
+    this.sortingSpeedNumRef.current.innerHTML = `Sorting interval: ${Math.round(
       (200 / this.sortingSpeedRef.current.value) * 10
     ) / 10}
       ms`;
+
+    this.setState({ sortingSpeed: this.sortingSpeedRef.current.value });
     this.amountNumRef.current.innerHTML = `Amount of columns:  ${this.state.columnsAmount}`;
   }
 
-  sortingChange = () => {
-    this.setState({ isSorting: !this.state.isSorting });
+  sortingChange = (value = !this.state.isSorting) => {
+    this.setState({ isSorting: value });
   };
 
   isArraySorted = () => {
@@ -47,7 +48,7 @@ class App extends React.Component {
 
     document
       .querySelectorAll(".Container-column")
-      .forEach(node => (node.style.backgroundColor = "gray"));
+      .forEach(node => (node.style.backgroundColor = "#ededed"));
 
     this.randomizeColumns();
   };
@@ -56,7 +57,7 @@ class App extends React.Component {
     this.setState({ sortingSpeed: event.target.value });
 
     document.getElementById("sortingSpeedNumber").innerHTML =
-      "Sorting speed: " +
+      "Sorting interval: " +
       Math.round((200 / event.target.value) * 10) / 10 +
       "ms";
   };
@@ -91,15 +92,13 @@ class App extends React.Component {
                 max="300"
                 disabled={this.state.isSorting}
               />
-              <div>
-                <label
-                  ref={this.amountNumRef}
-                  id="amountNumber"
-                  htmlFor="columnAmount"
-                >
-                  Amount of columns:
-                </label>
-              </div>
+              <label
+                ref={this.amountNumRef}
+                id="amountNumber"
+                htmlFor="columnAmount"
+              >
+                Amount of columns:
+              </label>
             </span>
             <span>
               <input
@@ -111,6 +110,7 @@ class App extends React.Component {
                 min="1"
                 max="100"
                 step="1"
+                defaultValue="4"
                 disabled={this.state.isSorting}
               />
               <label
@@ -118,14 +118,16 @@ class App extends React.Component {
                 id="sortingSpeedNumber"
                 htmlFor="sortingSpeed"
               >
-                Sorting speed:
+                Sorting interval:
               </label>
             </span>
           </div>
-          <p>Steps: </p>
-          <p ref={this.stepCounterRef} id="stepCounter">
-            0
-          </p>
+          <div className="step-counter">
+            <p>Steps: </p>
+            <span ref={this.stepCounterRef} id="stepCounter">
+              0
+            </span>
+          </div>
           <div className="App-header__algorithms">
             <BubbleSort
               sortingSpeed={this.state.sortingSpeed}
@@ -163,14 +165,6 @@ class App extends React.Component {
               isArraySorted={this.isArraySorted}
               array={this.state.array}
             />
-            <HeapSort
-              sortingSpeed={this.state.sortingSpeed}
-              isSorting={this.state.isSorting}
-              sortingChange={this.sortingChange}
-              isSorted={this.state.isSorted}
-              isArraySorted={this.isArraySorted}
-              array={this.state.array}
-            />
           </div>
         </header>
         <section className="App-container">
@@ -179,7 +173,7 @@ class App extends React.Component {
               className="Container-column"
               key={idx}
               style={{
-                backgroundColor: "gray",
+                backgroundColor: "#E6F4F1",
                 height: `${value}%`,
                 width: `calc(100% / ${this.state.columnsAmount})`
               }}

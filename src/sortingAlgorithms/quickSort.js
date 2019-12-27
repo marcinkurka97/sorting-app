@@ -9,13 +9,30 @@ function QuickSort({
 }) {
   const quickSorting = () => {
     if (!isSorted) {
-      sortingChange();
+      sortingChange(true);
     }
     let node = document.querySelector(".App-container");
+
+    const initialSortedArray = [];
+    node.childNodes.forEach(el =>
+      initialSortedArray.push(parseFloat(el.style.height))
+    );
+    initialSortedArray.sort((a, b) => a - b);
+
     let counter = 0;
 
     (async function quickSort(arr, left, right) {
       var pivot, partitionIndex;
+
+      const actualArr = [];
+
+      arr.childNodes.forEach(el => actualArr.push(parseFloat(el.style.height)));
+
+      if (arraysEqual(actualArr, initialSortedArray)) {
+        isArraySorted();
+        sortingChange(false);
+        return;
+      }
 
       if (left < right) {
         pivot = right;
@@ -28,11 +45,8 @@ function QuickSort({
       }
 
       for (let i = 0; i < arr.childNodes.length; i++) {
-        arr.children[i].style.background = "green";
+        arr.children[i].style.background = "#159957";
       }
-
-      isArraySorted();
-      sortingChange();
 
       return arr;
     })(node, 0, node.childNodes.length - 1);
@@ -47,13 +61,13 @@ function QuickSort({
           parseFloat(pivotValue.style.height)
         ) {
           await swap(arr, i, partitionIndex);
-          arr.children[i].style.background = "green";
+          arr.children[i].style.background = "#159957";
 
           partitionIndex++;
         }
         document.getElementById("stepCounter").innerHTML = counter++;
       }
-      arr.children[pivot].style.background = "gray";
+      arr.children[pivot].style.background = "#e6f4f1";
       await swap(arr, right, partitionIndex);
       return partitionIndex;
     }
@@ -65,6 +79,15 @@ function QuickSort({
 
     function timer(ms) {
       return new Promise(res => setTimeout(res, ms));
+    }
+
+    function arraysEqual(arr1, arr2) {
+      if (arr1.length !== arr2.length) return false;
+      for (var i = arr1.length; i--; ) {
+        if (arr1[i] !== arr2[i]) return false;
+      }
+
+      return true;
     }
   };
 

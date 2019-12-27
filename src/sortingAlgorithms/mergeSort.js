@@ -15,7 +15,7 @@ function MergeSort({
     const [barOneIdx, barTwoIdx] = animations[i];
     const barOneStyle = arrayBars[barOneIdx].style;
     const barTwoStyle = arrayBars[barTwoIdx].style;
-    const color = i % 3 === 0 ? "red" : "green";
+    const color = i % 3 === 0 ? "#832700" : "#159957";
     barOneStyle.backgroundColor = color;
     barTwoStyle.backgroundColor = color;
   }
@@ -32,9 +32,10 @@ function MergeSort({
   }
 
   async function mergeSorting() {
-    if (!isSorted) {
-      sortingChange();
-    }
+    // if (!isSorted) {
+    //   sortingChange(true);
+    // }
+
     const animations = await getMergeSortAnimations(array);
     for (let i = 0; i < animations.length; i++) {
       document.getElementById("stepCounter").innerHTML = counter++;
@@ -46,21 +47,16 @@ function MergeSort({
         await changeHeight(arrayBars, animations, i);
       }
     }
-    isArraySorted();
-    sortingChange();
+
+    // isArraySorted();
+    // sortingChange(false);
   }
 
   async function getMergeSortAnimations(array) {
     const animations = [];
     if (array.length <= 1) return array;
-    const auxiliaryArray = array.slice();
-    await mergeSortHelper(
-      array,
-      0,
-      array.length - 1,
-      auxiliaryArray,
-      animations
-    );
+    const helperArray = array.slice();
+    await mergeSortHelper(array, 0, array.length - 1, helperArray, animations);
     return animations;
   }
 
@@ -68,20 +64,22 @@ function MergeSort({
     mainArray,
     startIdx,
     endIdx,
-    auxiliaryArray,
+    helperArray,
     animations
   ) {
-    if (startIdx === endIdx) return;
+    if (startIdx === endIdx) {
+      return;
+    }
     const middleIdx = Math.floor((startIdx + endIdx) / 2);
     await mergeSortHelper(
-      auxiliaryArray,
+      helperArray,
       startIdx,
       middleIdx,
       mainArray,
       animations
     );
     await mergeSortHelper(
-      auxiliaryArray,
+      helperArray,
       middleIdx + 1,
       endIdx,
       mainArray,
@@ -92,7 +90,7 @@ function MergeSort({
       startIdx,
       middleIdx,
       endIdx,
-      auxiliaryArray,
+      helperArray,
       animations
     );
   }
@@ -102,7 +100,7 @@ function MergeSort({
     startIdx,
     middleIdx,
     endIdx,
-    auxiliaryArray,
+    helperArray,
     animations
   ) {
     let k = startIdx;
@@ -111,25 +109,25 @@ function MergeSort({
     while (i <= middleIdx && j <= endIdx) {
       animations.push([i, j]);
       animations.push([i, j]);
-      if (auxiliaryArray[i] <= auxiliaryArray[j]) {
-        animations.push([k, auxiliaryArray[i]]);
-        mainArray[k++] = auxiliaryArray[i++];
+      if (helperArray[i] <= helperArray[j]) {
+        animations.push([k, helperArray[i]]);
+        mainArray[k++] = helperArray[i++];
       } else {
-        animations.push([k, auxiliaryArray[j]]);
-        mainArray[k++] = auxiliaryArray[j++];
+        animations.push([k, helperArray[j]]);
+        mainArray[k++] = helperArray[j++];
       }
     }
     while (i <= middleIdx) {
       animations.push([i, i]);
       animations.push([i, i]);
-      animations.push([k, auxiliaryArray[i]]);
-      mainArray[k++] = auxiliaryArray[i++];
+      animations.push([k, helperArray[i]]);
+      mainArray[k++] = helperArray[i++];
     }
     while (j <= endIdx) {
       animations.push([j, j]);
       animations.push([j, j]);
-      animations.push([k, auxiliaryArray[j]]);
-      mainArray[k++] = auxiliaryArray[j++];
+      animations.push([k, helperArray[j]]);
+      mainArray[k++] = helperArray[j++];
     }
   }
 

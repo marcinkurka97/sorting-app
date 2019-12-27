@@ -18,18 +18,18 @@ function BubbleSort({
       await timer(200 / sortingSpeed);
       document.getElementById("stepCounter").innerHTML = counter++;
       if (j >= 1) {
-        node.children[j - 1].style.background = "gray";
+        node.children[j - 1].style.background = "#E6F4F1";
       }
       if (
         parseFloat(node.children[j].style.height) >
         parseFloat(node.children[j + 1].style.height)
       ) {
         node.insertBefore(node.children[j + 1], node.children[j]);
-        node.children[j].style.background = "green";
-        node.children[j + 1].style.background = "green";
+        node.children[j].style.background = "#159957";
+        node.children[j + 1].style.background = "#159957";
       } else {
-        node.children[j].style.background = "red";
-        node.children[j + 1].style.background = "red";
+        node.children[j].style.background = "#832700";
+        node.children[j + 1].style.background = "#832700";
       }
     }
 
@@ -41,10 +41,10 @@ function BubbleSort({
           }
           if (k < node.childNodes.length - 1) {
             node.children[node.childNodes.length - 2 - k].style.background =
-              "gray";
+              "#E6F4F1";
           }
           node.children[node.childNodes.length - 1 - k].style.background =
-            "green";
+            "#159957";
         }
         isArraySorted();
         sortingChange();
