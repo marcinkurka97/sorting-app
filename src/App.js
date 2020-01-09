@@ -80,8 +80,23 @@ class App extends React.Component {
     const { array } = this.state;
     return (
       <div className="App">
-        <header className="App-header">
-          <div className="App-header__settings">
+        <section className="App-container">
+          {array.map((value, idx) => (
+            <div
+              className="Container-column"
+              key={idx}
+              style={{
+                backgroundColor: "#E6F4F1",
+                height: `${value}%`,
+                width: `calc(100% / ${this.state.columnsAmount})`
+              }}
+            ></div>
+          ))}
+        </section>
+        <nav className="App-nav">
+          <h1 className="App-nav__title">Sorting Visualizer App</h1>
+          <span className="App-nav__line" />
+          <div className="App-nav__settings">
             <span>
               <input
                 type="range"
@@ -100,6 +115,10 @@ class App extends React.Component {
                 Amount of columns:
               </label>
             </span>
+            <span
+              className="App-nav__line"
+              style={{ width: "calc(100% - 50px)" }}
+            />
             <span>
               <input
                 type="range"
@@ -122,13 +141,17 @@ class App extends React.Component {
               </label>
             </span>
           </div>
+          <span className="App-nav__line" />
+
           <div className="step-counter">
             <p>Steps: </p>
             <span ref={this.stepCounterRef} id="stepCounter">
               0
             </span>
           </div>
-          <div className="App-header__algorithms">
+          <span className="App-nav__line" />
+
+          <div className="App-nav__algorithms">
             <BubbleSort
               sortingSpeed={this.state.sortingSpeed}
               isSorting={this.state.isSorting}
@@ -166,20 +189,7 @@ class App extends React.Component {
               array={this.state.array}
             />
           </div>
-        </header>
-        <section className="App-container">
-          {array.map((value, idx) => (
-            <div
-              className="Container-column"
-              key={idx}
-              style={{
-                backgroundColor: "#E6F4F1",
-                height: `${value}%`,
-                width: `calc(100% / ${this.state.columnsAmount})`
-              }}
-            ></div>
-          ))}
-        </section>
+        </nav>
       </div>
     );
   }
